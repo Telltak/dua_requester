@@ -1,0 +1,37 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/tekwizely/pre-commit-golang
+    rev: v1.0.0-rc.1
+    hooks:
+      - id: go-build-mod
+      - id: go-fmt
+      - id: go-imports
+      - id: golangci-lint-mod
+      - id: go-critic
+      - id: go-test-mod
+      - id: go-mod-tidy
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.99.5
+    hooks:
+      - id: terraform_fmt
+      - id: terraform_tflint
+      # - id: terraform_validate # terraform_validate checks the tf config which while useful isn't crucial. It also doesn't pair nicely with our usage of tfswitch. More investigation needed to resolve this
+  - repo: https://github.com/bridgecrewio/checkov
+    rev: 3.2.457
+    hooks:
+      - id: checkov
+        name: Checkov
+        description: This hook runs checkov.
+        entry: checkov -d .
+        language: python
+        pass_filenames: false
+        always_run: false
+        files: \.tf$
+        exclude: \.+.terraform\/.*$
+        require_serial: true
+        args: ["--download-external-modules", "True", "--quiet", "--soft-fail", "--hard-fail-on", "MEDIUM"]
