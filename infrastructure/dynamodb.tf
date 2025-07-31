@@ -1,5 +1,5 @@
 resource "aws_dynamodb_table" "this" {
-  name         = "DuaRequesterTable"
+  name         = "${var.service_name}-table"
   billing_mode = "PAY_PER_REQUEST"
 
   hash_key  = "PK"
