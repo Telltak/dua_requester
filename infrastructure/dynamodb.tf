@@ -10,7 +10,14 @@ resource "aws_dynamodb_table" "this" {
     hash_key           = "UnreadDuaIndexPK"
     range_key          = "SK"
     projection_type    = "INCLUDE"
-    non_key_attributes = ["Dua", "Posted"]
+    non_key_attributes = ["Dua", "PostedBy"]
+  }
+
+  global_secondary_index {
+    name            = "ClaimedDuaIndex"
+    hash_key        = "ClaimedDuaIndexPK"
+    range_key       = "ClaimedAt"
+    projection_type = "KEYS_ONLY"
   }
 
   attribute {
@@ -28,13 +35,23 @@ resource "aws_dynamodb_table" "this" {
     type = "S"
   }
 
+  attribute {
+    name = "ClaimedDuaIndexPK"
+    type = "S"
+  }
+
+  attribute {
+    name = "ClaimedAt"
+    type = "S"
+  }
+
   # attribute {
   #   name = "Dua"
   #   type = "S"
   # }
   #
   # attribute {
-  #   name = "Posted"
+  #   name = "PostedBy"
   #   type = "S"
   # }
   #
