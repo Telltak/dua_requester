@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<title>Make My Dua</title>
+		<!-- TODO: Download and store in S3 - how to maintain latest? -->
+		<script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.sand.min.css"
+		>
+	</head>
+	<body>
+		<div hx-get="/api/duas/count" hx-trigger="load">Fetching dua count ...</div>
+		<form>
+			<label for="dua">What's your dua?</label>
+			<textarea id="dua" name="dua"></textarea>
+			<label for="name">What's your name (if you want it)</label>
+			<input id="name" name="name"></input>
+			<input type="submit" hx-post="/api/dua"></input
+		</form>
+	</body>
+</html>
