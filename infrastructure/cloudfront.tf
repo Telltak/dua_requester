@@ -18,10 +18,12 @@ resource "aws_cloudfront_distribution" "this" {
   default_cache_behavior {
     viewer_protocol_policy = "redirect-to-https"
     allowed_methods        = ["GET", "HEAD"]
-    cache_policy_id        = "b2884449-e4de-46a7-ac36-70bc7f1ddd6d" // NOTE: CachingOptimizedForUncompressedObjects
-    target_origin_id       = "static_content"
-    cached_methods         = ["GET", "HEAD"]
-    compress               = true
+    # cache_policy_id        = "b2884449-e4de-46a7-ac36-70bc7f1ddd6d" // NOTE: CachingOptimizedForUncompressedObjects
+    // TODO: Once initial dev is finished, swap these
+    cache_policy_id  = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad" // NOTE: CachingDisabled
+    target_origin_id = "static_content"
+    cached_methods   = ["GET", "HEAD"]
+    compress         = true
   }
 
   ordered_cache_behavior { // NOTE: Disable caching for apigateway content

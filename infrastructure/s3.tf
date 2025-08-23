@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "static_content" {
-  bucket = "${var.service_name}-${data.aws_caller_identity.this.account_id}-static"
+  bucket = replace("${var.service_name}_${data.aws_caller_identity.this.account_id}_static", "_", "-")
 }
 
 resource "aws_s3_bucket_policy" "static_content" {

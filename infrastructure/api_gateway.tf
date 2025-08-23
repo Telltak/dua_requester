@@ -6,6 +6,8 @@ resource "aws_apigatewayv2_deployment" "this" {
       jsonencode(aws_apigatewayv2_route.post_dua),
       jsonencode(aws_apigatewayv2_integration.get_duas),
       jsonencode(aws_apigatewayv2_route.get_duas),
+      jsonencode(aws_apigatewayv2_integration.get_dua_count),
+      jsonencode(aws_apigatewayv2_route.get_dua_count),
       jsonencode(aws_apigatewayv2_integration.patch_dua),
       jsonencode(aws_apigatewayv2_route.patch_dua)
     ])))
@@ -112,6 +114,20 @@ resource "aws_apigatewayv2_integration" "get_duas" {
 resource "aws_apigatewayv2_route" "get_duas" {
   api_id    = aws_apigatewayv2_api.this.id
   route_key = "GET ${local.api_prefix}/duas"
+  target    = "integrations/${aws_apigatewayv2_integration.get_duas.id}"
+}
+
+resource "aws_apigatewayv2_integration" "get_dua_count" {
+  api_id                 = aws_apigatewayv2_api.this.id
+  integration_type       = "AWS_PROXY"
+  integration_method     = "GET"
+  integration_uri        = aws_lambda_function.dua_requester.arn
+  payload_format_version = "2.0"
+}
+
+resource "aws_apigatewayv2_route" "get_dua_count" {
+  api_id    = aws_apigatewayv2_api.this.id
+  route_key = "GET ${local.api_prefix}/duas/count"
   target    = "integrations/${aws_apigatewayv2_integration.get_duas.id}"
 }
 
