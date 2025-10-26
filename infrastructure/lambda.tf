@@ -31,9 +31,11 @@ resource "aws_lambda_function" "dua_requester" {
 
   environment {
     variables = {
-      OTEL_EXPORTER_OTLP_ENDPOINT = var.otel_exporter_otlp_endpoint
-      HONEYCOMB_API_KEY           = var.honeycomb_api_key
-      OTEL_SERVICE_NAME           = var.service_name
+      OTEL_EXPORTER_OTLP_ENDPOINT      = var.otel_exporter_otlp_endpoint
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT = "https://${var.otel_exporter_otlp_endpoint}/v1/logs"
+      HONEYCOMB_API_KEY                = var.honeycomb_api_key
+      OTEL_SERVICE_NAME                = var.service_name
+      HONEYCOMB_DATASET_NAME           = var.service_name
     }
   }
 }
