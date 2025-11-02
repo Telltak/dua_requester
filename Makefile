@@ -1,3 +1,5 @@
+test:
+	cd src && go test ./...
 build:
 	cd src && GOOS=linux GOARCH=amd64 go build -o ../bootstrap main.go
 	zip lambda.zip bootstrap

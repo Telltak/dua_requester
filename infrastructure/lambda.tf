@@ -36,6 +36,7 @@ resource "aws_lambda_function" "dua_requester" {
       HONEYCOMB_API_KEY                = var.honeycomb_api_key
       OTEL_SERVICE_NAME                = var.service_name
       HONEYCOMB_DATASET_NAME           = var.service_name
+      DDB_TABLE                        = aws_dynamodb_table.this.name
     }
   }
 }
